@@ -12,6 +12,8 @@ const partialspath = path.join(__dirname, '../templates/partials')
 
 console.log(viewsPath)
 const app = express()
+//process.env.PORT value will exist on heroku
+const port = process.env.PORT || 3000
 
 //Setup handlebars engine
 app.set('view engine', 'hbs')
@@ -55,7 +57,7 @@ app.get('/weather', (req, res) => {
         if(error) {
             return res.send({error: error})
         }
-        console.log('At line 58')
+     
         forecast(longtitude, latitude, (error, forecastData) => {
             if(error) {
                 return res.send({error: error})
@@ -107,6 +109,6 @@ app.get('*', (req, res)=> {
 })
 
 //port 3000
-app.listen(3000, ()=>{
-    console.log('Server has started')
+app.listen(port, ()=>{
+    console.log('Server has started on port ' + port)
 })
